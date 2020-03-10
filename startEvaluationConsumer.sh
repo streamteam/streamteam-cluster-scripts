@@ -23,59 +23,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DIR
 
-./cleanAllHadoopLogs.sh
+simulationNode=`cat config/simulationNode.txt`
+keyfile=`cat config/keyFilePath.txt`
 
-./startZookeeper.sh &
-echo Sleep 20s
-sleep 20
-
-./startYarn.sh
-echo Sleep 10s
-sleep 10
-
-./startHDFS.sh
-echo Sleep 10s
-sleep 10
-
-./startKafka.sh &
-echo Sleep 20s
-sleep 20
-
-./startKafkaRestProxy.sh &
-echo Sleep 10s
-sleep 10
-
-./startPrometheus.sh &
-echo Sleep 3s
-sleep 3
-
-./startSamzaPrometheusExporter.sh &
-echo Sleep 3s
-sleep 3
-
-./startGrafana.sh &
-echo Sleep 3s
-sleep 3
-
-./startMongoDB.sh
-echo Sleep 10s
-sleep 10
-
-./clearDatabase.sh &
-echo Sleep 10s
-sleep 10
-
-./startStreamImporter.sh &
-echo Sleep 10s
-sleep 10
-
-./startMongoDBRESTProxy.sh &
-echo Sleep 10s
-sleep 10
-
-./clearSimulationNode.sh
-./startEvaluationConsumer.sh &
-echo Sleep 10s
-sleep 10
-
-echo Finished
+echo "=== Start EvaluationConsumer with ssh via $simulationNode ==="
+ssh -i $keyfile ubuntu@$simulationNode ./streamteam-evaluation/startEvaluationConsumer.sh

@@ -23,6 +23,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DIR
 
+./stopEvaluationConsumer.sh &
+echo Sleep 10s
+sleep 10
+
 ./stopMongoDBRESTProxy.sh &
 echo Sleep 10s
 sleep 10
