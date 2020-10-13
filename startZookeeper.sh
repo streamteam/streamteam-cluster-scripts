@@ -29,7 +29,7 @@ number=1
 for node in `cat config/zookeeperNodeList.txt`; do
 	echo Start Zookeeper via ssh on $node:
 	ssh -i $keyfile ubuntu@$node "rm -R /tmp/zookeeper; mkdir /tmp/zookeeper; touch /tmp/zookeeper/myid; echo $number >> /tmp/zookeeper/myid"
-	ssh -i $keyfile ubuntu@$node "~/kafka_2.11-0.10.1.1/bin/zookeeper-server-start.sh ~/kafka_2.11-0.10.1.1/config/zookeeper.properties &"&
+	ssh -i $keyfile ubuntu@$node "~/kafka_2.11-2.0.1/bin/zookeeper-server-start.sh ~/kafka_2.11-2.0.1/config/zookeeper.properties &"&
 	#http://stackoverflow.com/questions/13638670/adding-counter-in-shell-script
 	number=$((number+1))
 done

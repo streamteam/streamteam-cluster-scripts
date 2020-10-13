@@ -18,19 +18,29 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+die() {
+	echo >&2 "$@"
+	exit 1
+}
+[ "$#" -ge 1 ] || die "requires at least one argument (numPartitions), $# provided"
+
+numPartitions=$1
+
+echo "Number of Kafka Partitions: "$numPartitions
+
 #http://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DIR
 
+master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`
 
-master=`cat config/masterNode.txt`
-echo Stop Kafka broker via ssh on $master:
-ssh -i $keyfile ubuntu@$master "~/kafka_2.11-2.0.1/bin/kafka-server-stop.sh"
-
-for slaveNode in `cat config/slaveNodeList.txt`; do
-	echo Stop Kafka broker via ssh on $slaveNode:
-	ssh -i $keyfile ubuntu@$slaveNode "~/kafka_2.11-2.0.1/bin/kafka-server-stop.sh"
-done
-
+echo "=== Set number of Kafka Partitions ==="
+# SED References
+# - https://www.cyberciti.biz/faq/how-to-use-sed-to-find-and-replace-text-in-files-in-linux-unix-shell/ 
+# - https://stackoverflow.com/questions/9189120/using-sed-with-wildcard 
+# - https://stackoverflow.com/questions/9608483/how-to-match-pattern-at-the-end-of-line-text
+ssh -i $keyfile ubuntu@$master "sed -i 's/num.partitions=.*$/num.partitions="$numPartitions"/g' ~/kafka_2.11-2.0.1/config/server-*.properties"
+ssh -i $keyfile ubuntu@$master "cat ~/kafka_2.11-2.0.1/config/server-*.properties | grep num.partitions"
+ssh -i $keyfile ubuntu@$master ./scripts/updateKafkaOnSlaves.sh

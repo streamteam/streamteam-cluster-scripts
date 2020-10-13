@@ -23,7 +23,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DIR
 
-command="rm -R ~/hadoop-2.6.5/logs/"
+command="rm -R ~/hadoop-2.7.7/logs/"
 
 master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`

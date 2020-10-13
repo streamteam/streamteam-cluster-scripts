@@ -27,5 +27,5 @@ keyfile=`cat config/keyFilePath.txt`
 
 for node in `cat config/zookeeperNodeList.txt`; do
 	echo Stop Zookeeper via ssh on $node:
-	ssh -i $keyfile ubuntu@$node "~/kafka_2.11-0.10.1.1/bin/zookeeper-server-stop.sh"
+	ssh -i $keyfile ubuntu@$node "~/kafka_2.11-2.0.1/bin/zookeeper-server-stop.sh"
 done
