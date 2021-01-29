@@ -25,6 +25,12 @@ cd $DIR
 
 master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
+
+#https://unix.stackexchange.com/questions/550986/search-and-replace-newline-comma-with-comma-newline/550997#550997
+brokerListWithKommaAtTheEnd=`cat config/masterNode.txt config/slaveNodeList.txt | sed -z 's/\n/:9092,/g'`
+#https://unix.stackexchange.com/questions/144298/delete-the-last-character-of-a-string-using-string-manipulation-in-shell-script/144330#144330
+brokerList=`echo "${brokerListWithKommaAtTheEnd: : -1}"`
 
 echo "=== Start SamzaPrometheusExporter with ssh on $master ==="
-ssh -i $keyfile ubuntu@$master samza-prometheus-exporter --port 8080 --topic metrics --brokers 10.34.58.65:9092,10.34.58.66:9092,10.34.58.67:9092,10.34.58.68:9092,10.34.58.69:9092
+ssh -i $keyfile $username@$master samza-prometheus-exporter --port 8080 --topic metrics --brokers $brokerList

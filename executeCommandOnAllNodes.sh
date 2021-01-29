@@ -41,15 +41,15 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 for node in `cat config/allNodesList.txt`; do
 	ip=$(echo $node | awk -F';' '{print $1}')
 	name=$(echo $node | awk -F';' '{print $2}')
 	echo "Execute command via ssh on "$name" ("$ip"):"
 	if [ "$#" -eq 2 ]; then
-		ssh -i $keyfile -o ConnectTimeout=$timeout ubuntu@$ip $command;
+		ssh -i $keyfile -o ConnectTimeout=$timeout $username@$ip $command;
 	else
-		ssh -i $keyfile ubuntu@$ip $command;
+		ssh -i $keyfile $username@$ip $command;
 	fi
-	
 done

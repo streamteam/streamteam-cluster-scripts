@@ -25,15 +25,17 @@ cd $DIR
 
 master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
+
 echo Start Kafka broker via ssh on $master:
-ssh -i $keyfile ubuntu@$master "mkdir /tmp/kafka-logs; rm -R /tmp/kafka-logs/.*"
-ssh -i $keyfile ubuntu@$master "~/kafka_2.11-2.0.1/bin/kafka-server-start.sh ~/kafka_2.11-2.0.1/config/server-1.properties &"&
+ssh -i $keyfile $username@$master "mkdir /tmp/kafka-logs; rm -R /tmp/kafka-logs/.*"
+ssh -i $keyfile $username@$master "~/kafka_2.11-2.0.1/bin/kafka-server-start.sh ~/kafka_2.11-2.0.1/config/server-1.properties &"&
 
 configNumber=2
 for slaveNode in `cat config/slaveNodeList.txt`; do
 	echo Start Kafka broker via ssh on $slaveNode:
-	ssh -i $keyfile ubuntu@$slaveNode "mkdir /tmp/kafka-logs; rm -R /tmp/kafka-logs/.*"
-	ssh -i $keyfile ubuntu@$slaveNode "~/kafka_2.11-2.0.1/bin/kafka-server-start.sh ~/kafka_2.11-2.0.1/config/server-$configNumber.properties &"&
+	ssh -i $keyfile $username@$slaveNode "mkdir /tmp/kafka-logs; rm -R /tmp/kafka-logs/.*"
+	ssh -i $keyfile $username@$slaveNode "~/kafka_2.11-2.0.1/bin/kafka-server-start.sh ~/kafka_2.11-2.0.1/config/server-$configNumber.properties &"&
 	#http://stackoverflow.com/questions/13638670/adding-counter-in-shell-script
 	configNumber=$((configNumber+1))
 done

@@ -35,12 +35,13 @@ cd $DIR
 
 master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 echo "=== Set number of Kafka Partitions ==="
 # SED References
 # - https://www.cyberciti.biz/faq/how-to-use-sed-to-find-and-replace-text-in-files-in-linux-unix-shell/ 
 # - https://stackoverflow.com/questions/9189120/using-sed-with-wildcard 
 # - https://stackoverflow.com/questions/9608483/how-to-match-pattern-at-the-end-of-line-text
-ssh -i $keyfile ubuntu@$master "sed -i 's/num.partitions=.*$/num.partitions="$numPartitions"/g' ~/kafka_2.11-2.0.1/config/server-*.properties"
-ssh -i $keyfile ubuntu@$master "cat ~/kafka_2.11-2.0.1/config/server-*.properties | grep num.partitions"
-ssh -i $keyfile ubuntu@$master ./scripts/updateKafkaOnSlaves.sh
+ssh -i $keyfile $username@$master "sed -i 's/num.partitions=.*$/num.partitions="$numPartitions"/g' ~/kafka_2.11-2.0.1/config/server-*.properties"
+ssh -i $keyfile $username@$master "cat ~/kafka_2.11-2.0.1/config/server-*.properties | grep num.partitions"
+ssh -i $keyfile $username@$master ./scripts/updateKafkaOnSlaves.sh

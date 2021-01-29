@@ -37,10 +37,12 @@ cd $DIR
 
 master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
+
 echo Execute command via ssh on $master:
-scp -i $keyfile $sourcepath ubuntu@$master:$targetpath
+scp -i $keyfile $sourcepath $username@$master:$targetpath
 
 for slaveNode in `cat config/slaveNodeList.txt`; do
 	echo Execute command via ssh on $slaveNode:
-	scp -i $keyfile $sourcepath ubuntu@$slaveNode:$targetpath
+	scp -i $keyfile $sourcepath $username@$slaveNode:$targetpath
 done

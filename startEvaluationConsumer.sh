@@ -25,6 +25,7 @@ cd $DIR
 
 simulationNode=`cat config/simulationNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 echo "=== Start EvaluationConsumer with ssh via $simulationNode ==="
-ssh -i $keyfile ubuntu@$simulationNode ./streamteam-evaluation/startEvaluationConsumer.sh
+ssh -i $keyfile $username@$simulationNode ./streamteam-evaluation/startEvaluationConsumer.sh

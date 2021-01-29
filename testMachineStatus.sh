@@ -24,9 +24,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 function testMachine () {
-	if time=$(ssh -i $keyfile -o ConnectTimeout=2 ubuntu@$1 "uptime -s" 2>/dev/null); 
+	if time=$(ssh -i $keyfile -o ConnectTimeout=2 $username@$1 "uptime -s" 2>/dev/null); 
 		then echo "\033[0;32mRunning since "$time"\033[0m";
 		else echo "\033[0;31mNot running\033[0m";
 	fi

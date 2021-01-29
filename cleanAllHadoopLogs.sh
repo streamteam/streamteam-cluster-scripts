@@ -27,10 +27,11 @@ command="rm -R ~/hadoop-2.7.7/logs/"
 
 master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 echo Execute command via ssh on $master:
-ssh -i $keyfile ubuntu@$master $command
+ssh -i $keyfile $username@$master $command
 
 for slaveNode in `cat config/slaveNodeList.txt`; do
 	echo Execute command via ssh on $slaveNode:
-	ssh -i $keyfile ubuntu@$slaveNode $command
+	ssh -i $keyfile $username@$slaveNode $command
 done

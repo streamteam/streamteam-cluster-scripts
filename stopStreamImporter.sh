@@ -25,6 +25,7 @@ cd $DIR
 
 master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 echo "=== Stop StreamImporter with ssh via $master ==="
-ssh -i $keyfile ubuntu@$master ./streamImporter/stopStreamImporter.sh
+ssh -i $keyfile $username@$master ./streamImporter/stopStreamImporter.sh

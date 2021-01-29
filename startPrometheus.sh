@@ -25,7 +25,8 @@ cd $DIR
 
 master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 echo "=== Start Prometheus with ssh on $master ==="
-ssh -i $keyfile ubuntu@$master rm -R ./data
-ssh -i $keyfile ubuntu@$master "./prometheus-2.0.0.linux-amd64/prometheus --config.file=./prometheus-2.0.0.linux-amd64/prometheus.yml &> prometheus.log"
+ssh -i $keyfile $username@$master rm -R ./data
+ssh -i $keyfile $username@$master "./prometheus-2.0.0.linux-amd64/prometheus --config.file=./prometheus-2.0.0.linux-amd64/prometheus.yml &> prometheus.log"

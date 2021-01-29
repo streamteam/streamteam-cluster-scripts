@@ -25,6 +25,7 @@ cd $DIR
 
 master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 echo "=== Stop SamzaPrometheusExporter with ssh on $master ==="
-ssh -i $keyfile ubuntu@$master pkill -SIGTERM -f 'samza-prometheus-exporter'
+ssh -i $keyfile $username@$master pkill -SIGTERM -f 'samza-prometheus-exporter'

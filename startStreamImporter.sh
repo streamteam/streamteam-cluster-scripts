@@ -25,6 +25,7 @@ cd $DIR
 
 master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 echo "=== Start StreamImporter with ssh via $master ==="
-ssh -i $keyfile ubuntu@$master ./streamImporter/startStreamImporter.sh
+ssh -i $keyfile $username@$master ./streamImporter/startStreamImporter.sh

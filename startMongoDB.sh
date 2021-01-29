@@ -25,6 +25,7 @@ cd $DIR
 
 master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 echo "=== Start MongoDB with ssh via $master ==="
-ssh -i $keyfile ubuntu@$master sudo service mongod start
+ssh -i $keyfile $username@$master sudo service mongod start

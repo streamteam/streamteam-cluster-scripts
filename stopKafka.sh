@@ -24,13 +24,14 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 master=`cat config/masterNode.txt`
 echo Stop Kafka broker via ssh on $master:
-ssh -i $keyfile ubuntu@$master "~/kafka_2.11-2.0.1/bin/kafka-server-stop.sh"
+ssh -i $keyfile $username@$master "~/kafka_2.11-2.0.1/bin/kafka-server-stop.sh"
 
 for slaveNode in `cat config/slaveNodeList.txt`; do
 	echo Stop Kafka broker via ssh on $slaveNode:
-	ssh -i $keyfile ubuntu@$slaveNode "~/kafka_2.11-2.0.1/bin/kafka-server-stop.sh"
+	ssh -i $keyfile $username@$slaveNode "~/kafka_2.11-2.0.1/bin/kafka-server-stop.sh"
 done
 

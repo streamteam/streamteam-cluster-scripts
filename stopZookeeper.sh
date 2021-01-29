@@ -24,8 +24,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 for node in `cat config/zookeeperNodeList.txt`; do
 	echo Stop Zookeeper via ssh on $node:
-	ssh -i $keyfile ubuntu@$node "~/kafka_2.11-2.0.1/bin/zookeeper-server-stop.sh"
+	ssh -i $keyfile $username@$node "~/kafka_2.11-2.0.1/bin/zookeeper-server-stop.sh"
 done

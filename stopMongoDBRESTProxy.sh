@@ -25,6 +25,7 @@ cd $DIR
 
 master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 echo "=== Stop MongoDBRESTProxy with ssh via $master ==="
-ssh -i $keyfile ubuntu@$master ./mongoDBRESTProxy/stopMongoDBRESTProxy.sh
+ssh -i $keyfile $username@$master ./mongoDBRESTProxy/stopMongoDBRESTProxy.sh

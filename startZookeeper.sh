@@ -24,12 +24,13 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 number=1
 for node in `cat config/zookeeperNodeList.txt`; do
 	echo Start Zookeeper via ssh on $node:
-	ssh -i $keyfile ubuntu@$node "rm -R /tmp/zookeeper; mkdir /tmp/zookeeper; touch /tmp/zookeeper/myid; echo $number >> /tmp/zookeeper/myid"
-	ssh -i $keyfile ubuntu@$node "~/kafka_2.11-2.0.1/bin/zookeeper-server-start.sh ~/kafka_2.11-2.0.1/config/zookeeper.properties &"&
+	ssh -i $keyfile $username@$node "rm -R /tmp/zookeeper; mkdir /tmp/zookeeper; touch /tmp/zookeeper/myid; echo $number >> /tmp/zookeeper/myid"
+	ssh -i $keyfile $username@$node "~/kafka_2.11-2.0.1/bin/zookeeper-server-start.sh ~/kafka_2.11-2.0.1/config/zookeeper.properties &"&
 	#http://stackoverflow.com/questions/13638670/adding-counter-in-shell-script
 	number=$((number+1))
 done

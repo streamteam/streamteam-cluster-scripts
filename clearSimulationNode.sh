@@ -25,8 +25,9 @@ cd $DIR
 
 simulationNode=`cat config/simulationNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 echo "=== Stop EvaluationConsumer with ssh via $simulationNode ==="
-ssh -i $keyfile ubuntu@$simulationNode "rm ~/streamteam-evaluation/log/*"
-ssh -i $keyfile ubuntu@$simulationNode "rm ~/streamteam-evaluation/latencies/*"
-ssh -i $keyfile ubuntu@$simulationNode "rm ~/streamteam-sensor-simulator/log/*"
+ssh -i $keyfile $username@$simulationNode "rm ~/streamteam-evaluation/log/*"
+ssh -i $keyfile $username@$simulationNode "rm ~/streamteam-evaluation/latencies/*"
+ssh -i $keyfile $username@$simulationNode "rm ~/streamteam-sensor-simulator/log/*"

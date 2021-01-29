@@ -25,6 +25,7 @@ cd $DIR
 
 master=`cat config/masterNode.txt`
 keyfile=`cat config/keyFilePath.txt`
+username=`cat config/username.txt`
 
 echo "=== Stop KafkaRestProxy with ssh via $master ==="
-ssh -i $keyfile ubuntu@$master ./kafkaRestProxy/stopKafkaRestProxy.sh
+ssh -i $keyfile $username@$master ./kafkaRestProxy/stopKafkaRestProxy.sh
